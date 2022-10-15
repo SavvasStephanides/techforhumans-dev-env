@@ -1,0 +1,25 @@
+version: '3'
+
+services:
+  api:
+    image: nginx:1.23.1-alpine
+    volumes:
+      - ./apps/posts/build:/usr/share/nginx/html
+    ports:
+      - 8001:80
+
+  api-app:
+    image: node:17-stretch-slim
+    volumes:
+      - ./apps/posts:/posts
+    working_dir: /posts
+    command: yarn start
+
+  web:
+    image: node:17-stretch-slim
+    volumes:
+      - ./apps/web:/web
+    working_dir: /web
+    ports:
+      - 3001:3000
+    command: yarn dev
