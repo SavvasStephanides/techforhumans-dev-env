@@ -9,10 +9,12 @@ services:
       - 8001:80
 
   web:
-    image: node:18-alpine3.17
+    image: node:20-alpine3.17
+    environment:
+      - API_BASE_URL=http://api
     volumes:
       - ./apps/web:/web
     working_dir: /web
     ports:
       - 3001:3000
-    command: yarn dev
+    command: npm run dev
